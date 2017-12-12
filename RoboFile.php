@@ -41,7 +41,7 @@ class RoboFile extends Tasks implements LoggerAwareInterface {
    *   created.
    * @option vm Whether a VM will be booted.
    */
-  public function createSymlinkedProject($options = [
+  public function createFromSymlinked($options = [
     'project-dir' => '../blted8',
     'vm' => TRUE,
   ]) {
@@ -86,7 +86,7 @@ class RoboFile extends Tasks implements LoggerAwareInterface {
    * @option project-dir The directory in which the test project will be
    *   created.
    */
-  public function createStandaloneProject($options = [
+  public function createFromBltProject($options = [
     'base-branch' => '9.x',
     'project-dir' => '../blted8',
   ]) {
@@ -102,7 +102,7 @@ class RoboFile extends Tasks implements LoggerAwareInterface {
   /**
    * @param array $options
    */
-  public function addToEmptyProject($options = [
+  public function createFromScratch($options = [
     'project-dir' => '../blted8',
     'vm' => TRUE,
   ]) {
@@ -120,7 +120,7 @@ class RoboFile extends Tasks implements LoggerAwareInterface {
     $task = $this->taskExecStack()
       ->dir($test_project_dir)
       // BLT is the only dependency at this point. Install it.
-      ->exec("composer require acquia/blt")
+      ->exec("composer require acquia/blt dev-issue-2320-add-to-existing")
       // I have no idea why this is necessary, but testing on OSX does not pass
       // without it.
       ->exec("rm -rf $test_project_dir/vendor")
